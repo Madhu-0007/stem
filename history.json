@@ -1,0 +1,52 @@
+[
+  {
+    "input": "It's made of two hydrogen atoms and one oxygen atom.",
+    "language": "isl",
+    "gloss": "WATER HYDROGEN ATOM TWO OXYGEN ATOM ONE MADE",
+    "display": "WATER H-Y-D-R-O-G-E-N A-T-O-M TWO O-X-Y-G-E-N A-T-O-M ONE M-A-D-E",
+    "timestamp": "2026-03-04T10:44:38.687082"
+  },
+  {
+    "input": "H2O is water.",
+    "language": "isl",
+    "gloss": "H TWO O WATER IS",
+    "display": "H TWO O WATER I-S",
+    "timestamp": "2026-03-04T10:44:18.276838"
+  },
+  {
+    "input": "[DOUBT] What is H2O?",
+    "language": "isl",
+    "answer": "H2O is water. It's made of two hydrogen atoms and one oxygen atom.",
+    "gloss": "WATER HYDROGEN ATOMS TWO OXYGEN ATOM ONE MADE OF CONSIST",
+    "display": "WATER H-Y-D-R-O-G-E-N A-T-O-M-S TWO O-X-Y-G-E-N A-T-O-M ONE M-A-D-E OF C-O-N-S-I-S-T",
+    "timestamp": "2026-03-04T10:43:53.112520"
+  },
+  {
+    "input": "h2o",
+    "language": "isl",
+    "gloss": "H TWO O",
+    "display": "H TWO O",
+    "timestamp": "2026-03-04T10:40:19.813983"
+  },
+  {
+    "input": "h2o",
+    "language": "asl",
+    "gloss": "H TWO O",
+    "display": "H TWO O",
+    "timestamp": "2026-03-04T10:39:13.080968"
+  },
+  {
+    "input": "h20",
+    "language": "asl",
+    "gloss": "H POWER TWENTY",
+    "display": "H POWER TWENTY",
+    "timestamp": "2026-03-04T10:39:01.689160"
+  },
+  {
+    "input": "h2o",
+    "language": "asl",
+    "gloss": "H TWO O",
+    "display": "H TWO O",
+    "timestamp": "2026-03-04T10:37:27.420035"
+  }
+]
