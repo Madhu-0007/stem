@@ -736,29 +736,49 @@ def match_to_sigml(gloss_words):
     sigml_dir = os.path.join("static", "SignFiles")
     
     def sigml_exists(word_lower):
-        """Check if SIGML file actually exists on disk"""
-        return os.path.exists(os.path.join(sigml_dir, f"{word_lower}.sigml"))
-    
+        """Check if SIGML file actually exists on disk.
+        Single letters (a-z) and digits (0-9) are stored as UPPERCASE on Linux
+        (e.g. H.sigml, O.sigml, 2.sigml), so we check both cases."""
+        lowercase_path = os.path.join(sigml_dir, f"{word_lower}.sigml")
+        if os.path.exists(lowercase_path):
+            return True
+        # For single chars, also try uppercase (letter/digit files are stored uppercase)
+        if len(word_lower) == 1:
+            uppercase_path = os.path.join(sigml_dir, f"{word_lower.upper()}.sigml")
+            return os.path.exists(uppercase_path)
+        return False
+
+    def sigml_key(word_lower):
+        """Return the correct-cased key for a word so the browser loads the right file."""
+        lowercase_path = os.path.join(sigml_dir, f"{word_lower}.sigml")
+        if os.path.exists(lowercase_path):
+            return word_lower
+        if len(word_lower) == 1:
+            uppercase_path = os.path.join(sigml_dir, f"{word_lower.upper()}.sigml")
+            if os.path.exists(uppercase_path):
+                return word_lower.upper()
+        return word_lower
+
     def find_in_vocab(w):
         """Check word and its synonyms, but ONLY if the SIGML file exists"""
         w_lower = w.lower()
         if w_lower in VALID_WORDS and sigml_exists(w_lower):
-            return w_lower
+            return sigml_key(w_lower)
         syn = SYNONYM_MAP.get(w.upper())
         if syn and syn.lower() in VALID_WORDS and sigml_exists(syn.lower()):
-            return syn.lower()
+            return sigml_key(syn.lower())
         return None
 
     for word in gloss_words:
         word_upper = word.upper()
         found = False
-        
+
         # 1. Direct or Synonym check
         match = find_in_vocab(word_upper)
         if match:
             result.append(match)
             continue
-            
+
         # 2. Suffix stripping loop
         temp_word = word_upper
         for suffix in suffixes:
@@ -769,15 +789,15 @@ def match_to_sigml(gloss_words):
                     result.append(match)
                     found = True
                     break
-        
+
         if found:
             continue
 
-        # 3. Fingerspell — verify each letter file exists too
+        # 3. Fingerspell — use correct-cased key for each letter/digit
         for letter in word.lower():
             if letter.isalpha():
                 if sigml_exists(letter):
-                    result.append(letter)
+                    result.append(sigml_key(letter))
                 else:
                     print(f"[WARN] No SIGML for letter '{letter}', skipping")
     return result
